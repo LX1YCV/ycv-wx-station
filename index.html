@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>WX</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a0f;--p:#0b1420;--b:#172030;--a:#00c8ff;--g:#00ff9d;
+  --w:#ffb300;--r:#ff4060;--t:#c0d4e8;--d:#304860;
+  --mono:'Share Tech Mono',monospace;--ui:'Rajdhani',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--t);font-family:var(--ui);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+body::after{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);pointer-events:none;z-index:999}
+
+/* HEADER */
+hd{display:flex;align-items:center;gap:10px;padding:8px 16px;border-bottom:1px solid var(--b);background:linear-gradient(90deg,#060a0f,#0a1422);flex-shrink:0}
+hd h1{font-family:var(--mono);font-size:13px;color:var(--a);letter-spacing:3px;text-shadow:0 0 10px rgba(0,200,255,0.4)}
+.bk{font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:2px;border:1px solid}
+.bl{color:var(--g);border-color:var(--g);animation:pulse 2s infinite}
+.bi{color:var(--d);border-color:var(--d)}
+.ba{color:var(--a);border-color:var(--a)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+hd #hts{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--d)}
+
+/* LAYOUT: 3 columns */
+.main{display:grid;grid-template-columns:220px 1fr 190px;flex:1;overflow:hidden;min-height:0}
+
+/* LEFT: sensor cards */
+.left{border-right:1px solid var(--b);overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:5px}
+.sh{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--d);padding-bottom:3px;border-bottom:1px solid var(--b);margin-top:2px}
+.card{background:var(--p);border:1px solid var(--b);border-radius:3px;padding:5px 8px;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--a);opacity:.5}
+.card.w::before{background:var(--g)}.card.r::before{background:#5566ff}
+.card.b::before{background:var(--w)}.card.u::before{background:var(--r);opacity:.6}
+.card.fl{border-color:var(--a);animation:cf .5s ease-out}
+@keyframes cf{0%{background:rgba(0,200,255,.08)}100%{background:var(--p)}}
+.cl{font-size:9px;color:var(--d);display:flex;justify-content:space-between}
+.cv{font-family:var(--mono);font-size:20px;line-height:1.1;margin-top:1px}
+.cv .u{font-size:10px;color:var(--d);margin-left:2px}
+.cr{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+
+/* CENTER */
+.center{display:flex;flex-direction:column;overflow:hidden;min-height:0}
+
+/* WIND SECTION — compass + big speed + direction */
+.wind-section{display:grid;grid-template-columns:190px 1fr;border-bottom:1px solid var(--b);flex-shrink:0}
+.compass-wrap{padding:8px;border-right:1px solid var(--b);display:flex;flex-direction:column;align-items:center;gap:3px}
+.vdir{font-family:var(--mono);font-size:20px;color:var(--a);letter-spacing:2px;text-shadow:0 0 10px rgba(0,200,255,.4);text-align:center;min-height:26px}
+.vfull{font-family:var(--mono);font-size:8px;color:var(--d);text-align:center;min-height:11px;max-width:170px;line-height:1.3}
+.vdeg{font-family:var(--mono);font-size:9px;color:var(--d)}
+.vvar{font-family:var(--mono);font-size:8px;color:var(--w);text-align:center;margin-top:1px}
+
+.wind-stats{padding:10px 14px;display:flex;flex-direction:column;gap:6px}
+.big-wind{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+.big-wind .val{font-family:var(--mono);font-size:48px;line-height:1;color:var(--g);text-shadow:0 0 18px rgba(0,255,157,.3)}
+.big-wind .unit{font-family:var(--mono);font-size:14px;color:var(--d)}
+.big-wind .lbl{font-size:11px;color:var(--d);align-self:flex-end;margin-bottom:6px}
+.wind-row{display:flex;gap:12px}
+.wstat{display:flex;flex-direction:column}
+.wstat .wl{font-size:9px;color:var(--d)}
+.wstat .wv{font-family:var(--mono);font-size:17px;color:var(--t)}
+.wstat .wu{font-family:var(--mono);font-size:10px;color:var(--d)}
+
+/* GRAPHS */
+.graphs{padding:8px 12px;overflow-y:auto;display:flex;flex-direction:column;gap:5px;flex:1}
+.gb{background:var(--p);border:1px solid var(--b);border-radius:3px;padding:5px 8px}
+.gt{font-family:var(--mono);font-size:8px;color:var(--d);letter-spacing:2px;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center}
+.gt span{color:var(--a)}
+.gt .cur{color:var(--t);font-size:11px}
+canvas.tr{width:100%;height:48px;display:block}
+
+/* LOG */
+.log{flex:0 0 120px;overflow-y:auto;padding:4px 8px;font-family:var(--mono);font-size:9px;display:flex;flex-direction:column;gap:1px;border-top:1px solid var(--b)}
+.le{display:flex;gap:5px;padding:1px 4px;border-left:2px solid var(--b);line-height:1.35;animation:si .2s ease-out}
+@keyframes si{from{opacity:0;transform:translateX(-4px)}to{opacity:1;transform:none}}
+.lt{color:var(--d);width:64px;flex-shrink:0}
+
+/* SNAP bar */
+.snapbar{display:flex;align-items:center;gap:6px;padding:5px 10px;border-top:1px solid var(--b);flex-shrink:0}
+.btn{font-family:var(--mono);font-size:9px;padding:3px 9px;border-radius:2px;cursor:pointer;border:1px solid;letter-spacing:1px}
+.bsnap{background:rgba(255,179,0,.08);border-color:var(--w);color:var(--w)}
+#snap-info{font-family:var(--mono);font-size:9px;color:var(--d)}
+
+/* RIGHT: raw table */
+.right{border-left:1px solid var(--b);overflow-y:auto;padding:7px}
+.rh{font-family:var(--mono);font-size:8px;letter-spacing:3px;color:var(--d);padding-bottom:4px;border-bottom:1px solid var(--b);margin-bottom:4px}
+table.rt{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10px}
+table.rt tr{border-bottom:1px solid rgba(23,32,48,.6)}
+table.rt tr:hover{background:rgba(255,255,255,.01)}
+table.rt td{padding:2px 2px;vertical-align:top}
+.rk{color:var(--d);width:24px}.rv{color:var(--t);word-break:break-all}
+.rv.ch{color:var(--a)}.rv.unk{color:var(--r)}.rd{font-size:8px;color:var(--d);padding-left:3px}
+</style>
+</head>
+<body>
+<hd>
+  <h1>&#9729; YCV MESH WX</h1>
+  <span class="bk bl">LIVE</span>
+  <span class="bk bi" id="pb">0 PKT</span>
+  <span class="bk ba" id="dirb">DIR: --</span>
+  <span class="bk bi" id="sb">SNAP: --</span>
+  <span id="hts">--:--:--</span>
+</hd>
+
+<div class="main">
+  <!-- LEFT -->
+  <div class="left">
+    <div class="sh">OUTDOOR</div>
+    <div class="cr">
+      <div class="card" id="c38"><div class="cl">Temperature</div><div class="cv" id="v38">--<span class="u">°C</span></div></div>
+      <div class="card" id="c39"><div class="cl">Humidity</div><div class="cv" id="v39">--<span class="u">%</span></div></div>
+    </div>
+    <div class="cr">
+      <div class="card" id="c65"><div class="cl">Feels Like</div><div class="cv" id="v65">--<span class="u">°C</span></div></div>
+      <div class="card" id="c66"><div class="cl">Heat Index</div><div class="cv" id="v66">--<span class="u">°C</span></div></div>
+    </div>
+
+    <div class="sh">RAIN</div>
+    <div class="cr">
+      <div class="card r" id="c59"><div class="cl">Event</div><div class="cv" id="v59">--<span class="u">mm</span></div></div>
+      <div class="card r" id="c60"><div class="cl">Daily</div><div class="cv" id="v60">--<span class="u">mm</span></div></div>
+    </div>
+    <div class="cr">
+      <div class="card r" id="c127"><div class="cl">Total</div><div class="cv" id="v127">--<span class="u">mm</span></div></div>
+      <div class="card r" id="c61"><div class="cl">Rate</div><div class="cv" id="v61">--<span class="u">mm/h</span></div></div>
+    </div>
+
+    <div class="sh">ATMOSPHERE</div>
+    <div class="card b" id="c54"><div class="cl">Pressure</div><div class="cv" id="v54">--<span class="u">hPa</span></div></div>
+    <div class="cr">
+      <div class="card" id="c62"><div class="cl">UV Index</div><div class="cv" id="v62">--</div></div>
+      <div class="card" id="c135"><div class="cl">Light</div><div class="cv" id="v135">--<span class="u">klux</span></div></div>
+    </div>
+
+    <div class="sh">STATION</div>
+    <div class="card u" id="c4"><div class="cl">Indoor Battery</div><div class="cv" id="v4">--<span class="u">%</span></div></div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="center">
+    <div class="wind-section">
+      <!-- COMPASS with wind rose underlay -->
+      <div class="compass-wrap">
+        <div class="vdir" id="vdir">--</div>
+        <div class="vfull" id="vfull">&nbsp;</div>
+        <svg viewBox="0 0 160 160" width="156" height="156" style="overflow:visible">
+          <!-- wind rose underlay (canvas-drawn petals) -->
+          <g id="rose"></g>
+          <!-- rings -->
+          <circle cx="80" cy="80" r="75" fill="none" stroke="#172030" stroke-width="1"/>
+          <circle cx="80" cy="80" r="56" fill="none" stroke="#172030" stroke-width=".5" stroke-dasharray="2 4"/>
+          <circle cx="80" cy="80" r="32" fill="none" stroke="#172030" stroke-width=".5" stroke-dasharray="1 5"/>
+          <g id="tks"></g>
+          <g id="dlbs" font-family="Share Tech Mono" text-anchor="middle"></g>
+          <!-- needle -->
+          <g id="needle" transform="rotate(0,80,80)">
+            <polygon points="80,10 75,74 80,64 85,74" fill="#00c8ff" opacity=".9"/>
+            <polygon points="80,150 75,86 80,96 85,86" fill="#172030"/>
+          </g>
+          <circle cx="80" cy="80" r="4" fill="#060a0f" stroke="#00c8ff" stroke-width="1.5"/>
+        </svg>
+        
+        <div class="vvar" id="vvar">&nbsp;</div>
+      </div>
+
+      <!-- WIND STATS -->
+      <div class="wind-stats">
+        <div class="big-wind">
+          <div class="val" id="big-speed">--</div>
+          <div>
+            <div class="unit">km/h</div>
+            <div class="lbl">CURRENT</div>
+          </div>
+        </div>
+        <div class="wind-row">
+          <div class="wstat">
+            <div class="wl">30-MIN AVG</div>
+            <div class="wv" id="ws-avg">--<span class="wu"> km/h</span></div>
+          </div>
+          <div class="wstat">
+            <div class="wl">GUST</div>
+            <div class="wv" id="ws-gust">--<span class="wu"> km/h</span></div>
+          </div>
+          <div class="wstat">
+            <div class="wl">30-MIN MAX</div>
+            <div class="wv" id="ws-max">--<span class="wu"> km/h</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAPHS -->
+    <div class="graphs">
+      <div class="gb">
+        <div class="gt">WIND SPEED km/h (30 min) <span class="cur" id="gvw">--</span></div>
+        <canvas class="tr" id="gw" height="48"></canvas>
+      </div>
+      <div class="gb">
+        <div class="gt">TEMPERATURE °C <span class="cur" id="gvt">--</span></div>
+        <canvas class="tr" id="gt" height="48"></canvas>
+      </div>
+      <div class="gb">
+        <div class="gt">HUMIDITY % <span class="cur" id="gvh">--</span></div>
+        <canvas class="tr" id="gh" height="48"></canvas>
+      </div>
+      <div class="gb">
+        <div class="gt">PRESSURE hPa <span class="cur" id="gvp">--</span></div>
+        <canvas class="tr" id="gp" height="48"></canvas>
+      </div>
+      <div class="gb">
+        <div class="gt">UV INDEX <span class="cur" id="gvu">--</span></div>
+        <canvas class="tr" id="gu" height="48"></canvas>
+      </div>
+      <div class="gb">
+        <div class="gt">LIGHT klux <span class="cur" id="gvl">--</span></div>
+        <canvas class="tr" id="gl" height="48"></canvas>
+      </div>
+      <div class="gb">
+        <div class="gt">RAINFALL mm <span class="cur" id="gvr">--</span></div>
+        <canvas class="tr" id="gr" height="48"></canvas>
+      </div>
+    </div>
+
+    <!-- SNAP BAR -->
+    <div class="snapbar">
+      <button class="btn bsnap" onclick="snapNow()">&#9729; SNAP NOW</button>
+      <span id="snap-info">Scheduled: :27 and :57</span>
+    </div>
+
+    <!-- LOG -->
+    <div class="log" id="logp"><div style="color:var(--d)">Waiting...</div></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="rh">RAW DPS</div>
+    <table class="rt"><tbody id="rawb"></tbody></table>
+  </div>
+</div>
+
+<script>
+const DIR_ORDER=["N","NNE","NE","ENE","E","ESE","SE","SSE","S","SSW","SW","WSW","W","WNW","NW","NNW"];
+const DIR_FULL={N:"North",NNE:"North North-East",NE:"North-East",ENE:"East North-East",E:"East",ESE:"East South-East",SE:"South-East",SSE:"South South-East",S:"South",SSW:"South South-West",SW:"South-West",WSW:"West South-West",W:"West",WNW:"West North-West",NW:"North-West",NNW:"North North-West"};
+const DIR_DEG={};DIR_ORDER.forEach((d,i)=>DIR_DEG[d]=i*22.5);
+
+function parseDir(b64){
+  const CODES=new Set(['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW']);
+  const NSEW=new Set([78,83,69,87]); // N S E W bytes only
+  try{
+    const r=atob(b64);
+    let s='';
+    for(let i=1;i<=3;i++){const c=r.charCodeAt(i);if(NSEW.has(c))s+=String.fromCharCode(c);}
+    return CODES.has(s)?s:'CALM'; // if not a valid 16-point code, station is reporting calm
+  }catch(e){return'CALM';}
+}
+
+// Build compass
+(function(){
+  const ns='http://www.w3.org/2000/svg';
+  const tg=document.getElementById('tks'),lg=document.getElementById('dlbs');
+  const mk=(t,a)=>{const e=document.createElementNS(ns,t);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e;};
+  DIR_ORDER.forEach((d,i)=>{
+    const deg=i*22.5,rad=(deg-90)*Math.PI/180;
+    const isC=i%4===0,isH=i%2===0;
+    const r1=75,r2=isC?61:isH?66:70;
+    tg.appendChild(mk('line',{x1:80+r1*Math.cos(rad),y1:80+r1*Math.sin(rad),x2:80+r2*Math.cos(rad),y2:80+r2*Math.sin(rad),stroke:isC?'#00c8ff':'#172030','stroke-width':isC?'1.5':'0.8'}));
+    if(isH){const lr=50,t=mk('text',{x:80+lr*Math.cos(rad),y:80+lr*Math.sin(rad)+3,'font-size':isC?'9':'7',fill:isC?'#00c8ff':'#304860'});t.textContent=d;lg.appendChild(t);}
+  });
+})();
+
+// Wind rose
+function drawRose(history){
+  const ns='http://www.w3.org/2000/svg';
+  const g=document.getElementById('rose');
+  while(g.firstChild)g.removeChild(g.firstChild);
+  if(!history||!history.length)return;
+  const counts={};
+  history.forEach(h=>{if(h.dir)counts[h.dir]=(counts[h.dir]||0)+1;});
+  const mx=Math.max(...Object.values(counts),1);
+  const mk=(t,a)=>{const e=document.createElementNS(ns,t);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));return e;};
+  DIR_ORDER.forEach((d,i)=>{
+    const cnt=counts[d]||0;
+    if(!cnt)return;
+    const frac=cnt/mx;
+    const maxR=28*frac+4;
+    const deg=i*22.5,rad=(deg-90)*Math.PI/180;
+    const spread=Math.PI/16;
+    const r1=6,r2=maxR+6;
+    const a1=rad-spread,a2=rad+spread;
+    const pts=[
+      `${80+r1*Math.cos(a1)},${80+r1*Math.sin(a1)}`,
+      `${80+r2*Math.cos(rad)},${80+r2*Math.sin(rad)}`,
+      `${80+r1*Math.cos(a2)},${80+r1*Math.sin(a2)}`,
+    ].join(' ');
+    const p=mk('polygon',{points:pts,fill:'rgba(0,200,255,0.18)',stroke:'rgba(0,200,255,0.5)','stroke-width':'0.5'});
+    g.appendChild(p);
+  });
+}
+
+// Needle
+let curDeg=0;
+function setNeedle(deg){let d=deg-curDeg;if(d>180)d-=360;if(d<-180)d+=360;curDeg+=d;document.getElementById('needle').setAttribute('transform',`rotate(${curDeg},80,80)`);}
+
+// Trends
+const MT=360;
+const T={wind:[],temp:[],hum:[],pres:[],uv:[],light:[],rain:[]};
+function push(k,v){if(v==null||isNaN(v))return;T[k].push(v);if(T[k].length>MT)T[k].shift();}
+
+function drawT(id,data,color,opts={}){
+  const c=document.getElementById(id);if(!c||data.length<2)return;
+  const ctx=c.getContext('2d'),W=c.offsetWidth,H=c.offsetHeight;
+  c.width=W;c.height=H;ctx.clearRect(0,0,W,H);
+  const mn=opts.min!==undefined?opts.min:Math.min(...data);
+  const mx=opts.max!==undefined?opts.max:Math.max(...data);
+  const rng=mx-mn||1;
+  // grid
+  ctx.strokeStyle='#172030';ctx.lineWidth=.5;
+  for(let i=0;i<=2;i++){const y=(H*i/2)|0;ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(W,y);ctx.stroke();}
+  // min/max labels
+  ctx.fillStyle='#304860';ctx.font='8px Share Tech Mono';
+  ctx.fillText(mx.toFixed(opts.dp||0),2,10);
+  ctx.fillText(mn.toFixed(opts.dp||0),2,H-2);
+  // fill
+  const g=ctx.createLinearGradient(0,0,0,H);
+  g.addColorStop(0,color+'55');g.addColorStop(1,color+'00');
+  ctx.fillStyle=g;ctx.beginPath();
+  data.forEach((v,i)=>{const x=(i/(data.length-1))*W,y=H-((v-mn)/rng)*(H-6)-3;i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+  ctx.lineTo(W,H);ctx.lineTo(0,H);ctx.closePath();ctx.fill();
+  // line
+  ctx.strokeStyle=color;ctx.lineWidth=1.5;ctx.lineJoin='round';ctx.beginPath();
+  data.forEach((v,i)=>{const x=(i/(data.length-1))*W,y=H-((v-mn)/rng)*(H-6)-3;i?ctx.lineTo(x,y):ctx.moveTo(x,y);});
+  ctx.stroke();
+  // dot
+  const lx=W-2,ly=H-((data[data.length-1]-mn)/rng)*(H-6)-3;
+  ctx.fillStyle=color;ctx.beginPath();ctx.arc(lx,ly,3,0,Math.PI*2);ctx.fill();
+}
+
+// Known keys
+const KNOWN={"1":"Indoor Temp","2":"Indoor Hum","4":"Indoor Bat","9":"Temp Unit","10":"Wind Unit","11":"Baro Unit","12":"Rain Unit","13":"Light Unit","38":"Outdoor Temp","39":"Outdoor Hum","54":"Pressure","55":"Baro#55","56":"Avg Wind","57":"Gust","59":"Rain Event","60":"Rain Daily","61":"Rain Rate","62":"UV Index","64":"Unk #64","65":"Feels Like","66":"Heat Index","101":"Clock","102":"Date Fmt","109":"Name","113":"Blob","127":"Rain Total","131":"Cur Wind","134":"Dir Blob","135":"Light","137":"Unk #137"};
+
+async function snapNow(){
+  document.getElementById('snap-info').textContent='Saving...';
+  try{const r=await fetch('/snapshot/now',{method:'POST'});const d=await r.json();document.getElementById('snap-info').textContent='Saved: '+d.file;document.getElementById('sb').textContent='SNAP: '+d.file.slice(10,21);}
+  catch(e){document.getElementById('snap-info').textContent='Failed: '+e;}
+}
+
+// State
+let prevV={},pktCount=0,lastLL=0;
+function fmt(k,v){return['1','38','65','66'].includes(String(k))&&typeof v==='number'?(v/10).toFixed(1):v;}
+
+function updSensors(d){
+  const l=d;
+  const mp={'38':'v38','39':'v39','54':'v54','57':'v57','59':'v59','60':'v60','61':'v61','62':'v62','65':'v65','66':'v66','127':'v127','131':'v131','135':'v135','4':'v4'};
+  Object.entries(l).forEach(([k,v])=>{
+    if(k.startsWith('_'))return;
+    const eid=mp[k];
+    if(eid){
+      const el=document.getElementById(eid);
+      if(el){const u=el.querySelector('.u');const fv=fmt(k,v);if(u)el.childNodes[0].textContent=fv;else el.textContent=fv;}
+      const card=document.getElementById('c'+k);if(card&&prevV[k]!==v){card.classList.remove('fl');void card.offsetWidth;card.classList.add('fl');}
+    }
+    prevV[k]=v;
+  });
+
+  // rain divide by 10
+  ['59','60','127','61'].forEach(k=>{
+    const el=document.getElementById('v'+k);
+    if(el&&l[k]!=null){const u=el.querySelector('.u');const fv=(l[k]/10).toFixed(1);if(u)el.childNodes[0].textContent=fv;else el.textContent=fv;}
+  });
+  // light: raw DPS is deca-lux, convert to klux = raw*10/1000 = raw/100
+  if(l['135']!=null){const el=document.getElementById('v135');if(el){const u=el.querySelector('.u');const fv=(l['135']/100).toFixed(2);if(u)el.childNodes[0].textContent=fv;else el.textContent=fv;}}
+
+  // current speed
+  if(l['131']!=null){document.getElementById('big-speed').textContent=l['131'];}
+  if(l['57']!=null){document.getElementById('ws-gust').innerHTML=l['57']+'<span class="wu"> km/h</span>';}
+
+  // push trends
+  if(l['131']!=null){push('wind',l['131']);document.getElementById('gvw').textContent=l['131'];}
+  if(l['38']!=null){push('temp',l['38']/10);document.getElementById('gvt').textContent=(l['38']/10).toFixed(1);}
+  if(l['39']!=null){push('hum',l['39']);document.getElementById('gvh').textContent=l['39'];}
+  if(l['54']!=null){push('pres',l['54']);document.getElementById('gvp').textContent=l['54'];}
+  if(l['62']!=null){push('uv',l['62']);document.getElementById('gvu').textContent=l['62'];}
+  if(l['135']!=null){push('light',l['135']/100);document.getElementById('gvl').textContent=(l['135']/100).toFixed(2);}
+  if(l['59']!=null){push('rain',l['59']/10);document.getElementById('gvr').textContent=(l['59']/10).toFixed(1);}
+}
+
+function updWind(wa, history){
+  if(!wa)return;
+  const calm=!wa.dominant_code||wa.dominant_code==='CALM';
+  const code=calm?'CALM':wa.variable?`V ${wa.var_from}-${wa.var_to}`:wa.dominant_code;
+  const full=calm?'Calm':wa.variable
+    ?`VARIABLE ${DIR_FULL[wa.var_from]||wa.var_from} AND ${DIR_FULL[wa.var_to]||wa.var_to}`
+    :(wa.dominant_full||'--');
+  document.getElementById('vdir').textContent=code||'--';
+  document.getElementById('vfull').textContent=full;
+  document.getElementById('dirb').textContent='DIR: '+(code||'--');
+  // needle from letter index (no degrees)
+  const dom=wa.variable?wa.var_from:wa.dominant_code;
+  if(dom&&dom!=='CALM'){const idx=DIR_ORDER.indexOf(dom);if(idx>=0)setNeedle(idx*22.5);}
+  document.getElementById('vvar').textContent=wa.variable
+    ?`VAR ${wa.var_from} – ${wa.var_to}`:calm?'NO WIND DATA':'';
+  if(wa.avg_speed_kmh!=null)document.getElementById('ws-avg').innerHTML=wa.avg_speed_kmh.toFixed(1)+'<span class="wu"> km/h</span>';
+  if(wa.max_speed_kmh!=null)document.getElementById('ws-max').innerHTML=wa.max_speed_kmh+'<span class="wu"> km/h</span>';
+  drawRose(history);
+}
+
+function updRaw(l){
+  const tbody=document.getElementById('rawb');
+  const ex={};tbody.querySelectorAll('tr').forEach(tr=>ex[tr.dataset.key]=tr);
+  Object.keys(l).filter(k=>!k.startsWith('_')).sort((a,b)=>parseInt(a)-parseInt(b)).forEach(k=>{
+    const v=l[k];const kn=KNOWN[k];let disp=String(v);if(disp.length>16)disp=disp.slice(0,14)+'..';
+    if(ex[k]){const vc=ex[k].querySelector('.rv');if(vc.textContent!==disp){vc.textContent=disp;vc.classList.add('ch');setTimeout(()=>vc.classList.remove('ch'),700);}}
+    else{const tr=document.createElement('tr');tr.dataset.key=k;tr.innerHTML=`<td class="rk">${k}</td><td class="rv${kn?'':' unk'}">${disp}</td><td class="rd">${kn||'?'}</td>`;tbody.appendChild(tr);}
+  });
+}
+
+function addLog(e){
+  const p=document.getElementById('logp');
+  const keys=Object.keys(e.dps).filter(k=>!k.startsWith('_')&&k!=='113');
+  const t=new Date(e.ts*1000).toLocaleTimeString('en-GB');
+  const div=document.createElement('div');div.className='le';
+  const parts=keys.map(k=>{
+    let v=String(e.dps[k]);
+    if(k==='134'){const pd=parseDir(e.dps[k]);v=pd||'CALM';}
+    else if(v.length>12)v=v.slice(0,10)+'..';
+    return`<span style="color:var(--a)">${k}</span>=<span style="color:var(--t)">${v}</span>`;
+  }).join(' ');
+  div.innerHTML=`<span class="lt">${t}</span><span>${parts}</span>`;
+  if(p.firstChild&&p.childElementCount===1&&p.firstChild.style&&p.firstChild.style.color)p.innerHTML='';
+  p.insertBefore(div,p.firstChild);
+  while(p.children.length>80)p.removeChild(p.lastChild);
+}
+
+async function tick(){
+  try{
+    const[dr,lr]=await Promise.all([fetch('/data'),fetch('/log')]);
+    const d=await dr.json(),log=await lr.json();
+    // Live clock always from system; show data freshness
+  document.getElementById('hts').textContent=new Date().toLocaleTimeString('en-GB');
+  if(d._ts){const age=Math.round(Date.now()/1000-d._ts);if(age>30)document.getElementById('pb').textContent=pktCount+' PKT ('+age+'s)';}
+    updSensors(d);
+    updWind(d._wind_analysis, d._wind_history);
+    updRaw(d);
+    const ne=log.slice(lastLL);ne.forEach(addLog);pktCount+=ne.length;lastLL=log.length;
+    document.getElementById('pb').textContent=pktCount+' PKT';
+    drawT('gw',T.wind,'#00ff9d',{min:0,dp:0});
+    drawT('gt',T.temp,'#ff6060',{dp:1});
+    drawT('gh',T.hum,'#6699ff',{min:0,max:100,dp:0});
+    drawT('gp',T.pres,'#00c8ff',{dp:0});
+    drawT('gu',T.uv,'#ffb300',{min:0,dp:0});
+    drawT('gl',T.light,'#ffffff',{min:0,dp:1});
+    drawT('gr',T.rain,'#5566ff',{min:0,dp:1});
+  }catch(e){console.error(e);}
+}
+// Clock always runs from browser time, never freezes
+setInterval(()=>{
+  const now=new Date();
+  document.getElementById('hts').textContent=now.toLocaleTimeString('en-GB');
+  // stale warning if station ts is >60s old
+  const ts=parseFloat(document.getElementById('hts').dataset.stationTs||0);
+  const stale=ts>0&&(Date.now()/1000-ts)>60;
+  document.getElementById('hts').style.color=stale?'var(--r)':'var(--d)';
+},1000);
+
+setInterval(tick,500);tick();
+</script>
+</body>
+</html>
