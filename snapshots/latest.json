@@ -1,15 +1,15 @@
 {
   "report_time": {
-    "iso": "2026-04-27T21:57:12Z",
-    "unix": 1777327032.95,
+    "iso": "2026-04-27T22:27:12Z",
+    "unix": 1777328832.97,
     "date_dmy": "27-04-2026",
-    "time_hm": "21:57",
-    "version": "YCV-WX-MAM-HOLZ-27-04-AS"
+    "time_hm": "22:27",
+    "version": "YCV-WX-MAM-HOLZ-27-04-AT"
   },
   "outdoor": {
     "temperature_c": 12.0,
-    "humidity_pct": 54,
-    "feels_like_c": 11.7,
+    "humidity_pct": 51,
+    "feels_like_c": 11.5,
     "heat_index_c": 12.0
   },
   "wind": {
