@@ -96,7 +96,7 @@ table.rt td{padding:2px 2px;vertical-align:top}
 </head>
 <body>
 <hd>
-  <h1>&#9729; YCV MESH WX</h1>
+  <h1>&#9729; TUYA WX</h1>
   <span class="bk bl">LIVE</span>
   <span class="bk bi" id="pb">0 PKT</span>
   <span class="bk ba" id="dirb">DIR: --</span>
@@ -373,11 +373,13 @@ function updSensors(d){
   if(l['135']!=null){const el=document.getElementById('v135');if(el){const u=el.querySelector('.u');const fv=(l['135']/100).toFixed(2);if(u)el.childNodes[0].textContent=fv;else el.textContent=fv;}}
 
   // current speed
-  if(l['131']!=null){document.getElementById('big-speed').textContent=l['131'];}
-  if(l['57']!=null){document.getElementById('ws-gust').innerHTML=l['57']+'<span class="wu"> km/h</span>';}
+  if(l['131']!=null){document.getElementById('big-speed').textContent=(l['131']/10).toFixed(1);}
+  if(l['56']!=null){document.getElementById('ws-avg').innerHTML=(l['56']/10).toFixed(1)+'<span class="wu"> km/h</span>';}
+  if(l['57']!=null){document.getElementById('ws-gust').innerHTML=(l['57']/10).toFixed(1)+'<span class="wu"> km/h</span>';document.getElementById('ws-max').innerHTML=(l['57']/10).toFixed(1)+'<span class="wu"> km/h</span>';}
+
 
   // push trends
-  if(l['131']!=null){push('wind',l['131']);document.getElementById('gvw').textContent=l['131'];}
+  if(l['131']!=null){push('wind',l['131']/10);document.getElementById('gvw').textContent=(l['131']/10).toFixed(1);}
   if(l['38']!=null){push('temp',l['38']/10);document.getElementById('gvt').textContent=(l['38']/10).toFixed(1);}
   if(l['39']!=null){push('hum',l['39']);document.getElementById('gvh').textContent=l['39'];}
   if(l['54']!=null){push('pres',l['54']);document.getElementById('gvp').textContent=l['54'];}
@@ -401,8 +403,8 @@ function updWind(wa, history){
   if(dom&&dom!=='CALM'){const idx=DIR_ORDER.indexOf(dom);if(idx>=0)setNeedle(idx*22.5);}
   document.getElementById('vvar').textContent=wa.variable
     ?`VAR ${wa.var_from} – ${wa.var_to}`:calm?'NO WIND DATA':'';
-  if(wa.avg_speed_kmh!=null)document.getElementById('ws-avg').innerHTML=wa.avg_speed_kmh.toFixed(1)+'<span class="wu"> km/h</span>';
-  if(wa.max_speed_kmh!=null)document.getElementById('ws-max').innerHTML=wa.max_speed_kmh+'<span class="wu"> km/h</span>';
+  if(l56!=null)document.getElementById('ws-avg').innerHTML=(l56/10).toFixed(1)+'<span class="wu"> km/h</span>';
+  if(l57!=null)document.getElementById('ws-max').innerHTML=(l57/10).toFixed(1)+'<span class="wu"> km/h</span>';
   drawRose(history);
 }
 
@@ -445,7 +447,7 @@ async function tick(){
     updRaw(d);
     const ne=log.slice(lastLL);ne.forEach(addLog);pktCount+=ne.length;lastLL=log.length;
     document.getElementById('pb').textContent=pktCount+' PKT';
-    drawT('gw',T.wind,'#00ff9d',{min:0,dp:0});
+    drawT('gw',T.wind,'#00ff9d',{min:0,dp:1});
     drawT('gt',T.temp,'#ff6060',{dp:1});
     drawT('gh',T.hum,'#6699ff',{min:0,max:100,dp:0});
     drawT('gp',T.pres,'#00c8ff',{dp:0});

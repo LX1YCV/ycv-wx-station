@@ -42,20 +42,15 @@ DIR_FULL  = {
 }
 
 VALID_DIR_CHARS = set(ord(c) for c in "NSEW")
+
 def get_atis_version(now):
     global atis_counter
-
     letters = string.ascii_uppercase
-
-    first = letters[(atis_counter // 26) % 26]
+    first  = letters[(atis_counter // 26) % 26]
     second = letters[atis_counter % 26]
-
-    cycle = f"{first}{second}"
-
+    cycle  = f"{first}{second}"
     atis_counter += 1
-
     return f"{now.strftime('%d-%m')}-{cycle}"
-    return f"{now.strftime('%d-%m')}-{cycle:02d}"
 
 def build_version(now):
     return f"YCV-WX-MAM-HOLZ-{get_atis_version(now)}"
@@ -80,7 +75,6 @@ def parse_dir(b64val):
 def calc_qnh(pressure_hpa, temp_c, elevation_m):
     """
     ICAO hypsometric formula for QNH (sea-level pressure).
-    This is the pressure used in aviation (METAR/ATIS).
     QNH = Pstation * (T / (T - 0.0065 * h))^5.257
     where T is temperature in Kelvin at station elevation.
     """
@@ -99,7 +93,7 @@ def dir_spread(dirs):
     return 16 - max(gaps)
 
 # =========================
-# OPEN-METEO VISIBILITY (REPLACED METEOLUX)
+# OPEN-METEO VISIBILITY
 # =========================
 
 last_visibility = None
@@ -115,21 +109,16 @@ def get_visibility():
         )
         r = requests.get(url, timeout=5)
         data = r.json()
-
         return data["current"]["visibility"]  # meters (int)
-
     except Exception as e:
         print("Open-Meteo error:", e)
         return None
 
-
 def get_visibility_cached():
     global last_visibility, last_fetch
-
     if time.time() - last_fetch > 300:  # 5 min cache
         last_visibility = get_visibility()
         last_fetch = time.time()
-
     return last_visibility
 
 def analyse_wind():
@@ -190,7 +179,7 @@ def make_payload():
     version = build_version(now)
     wa  = analyse_wind()
     dir_code, dir_full = wind_strings(wa)
-    cur_dir = parse_dir(l["134"]) if "134" in l else None  # None = calm  # "CALM" or direction code
+    cur_dir = parse_dir(l["134"]) if "134" in l else None
 
     def t10(k):
         v = l.get(k); return round(v / 10, 1) if v is not None else None
@@ -201,7 +190,6 @@ def make_payload():
     p_abs   = l.get("54")
     p_qnh   = calc_qnh(p_abs, temp_c, STATION_ELEVATION_M)
 
-    # Light: station reports in deca-lux, convert to lux then klux
     raw_light = l.get("135")
     light_klux = round(raw_light * 10 / 1000, 2) if raw_light is not None else None
 
@@ -246,13 +234,19 @@ def make_payload():
         },
         "battery_pct": l.get("4"),
         "visibility": {
-            "visibility_m": get_visibility_cached(),
+            "visibility_m":      get_visibility_cached(),
             "visibility_source": "Open-Meteo API",
         },
-
     }
 
 def save_snapshot():
+    # Stale data guard -- bail if latest hasn't updated in 10 min
+    ts  = latest.get("_ts", 0)
+    age = time.time() - ts
+    if age > 600:
+        print(f"[SNAP] Skipped -- data is {int(age)}s stale (no Tuya updates)")
+        return None, None
+
     payload = make_payload()
     fname   = datetime.now(timezone.utc).strftime("WX-REPORT-%d-%m-%y-%H-%M.json")
     fpath   = os.path.join(SNAPSHOT_DIR, fname)
@@ -290,55 +284,60 @@ def scheduler():
         time.sleep(20)
 
 def listener():
-    device = tinytuya.OutletDevice(DEVICE_ID, IP, LOCAL_KEY)
-    device.set_version(3.4)
-    device.set_socketPersistent(True)
-    LABELS = {"1":"IndoorTemp","2":"IndoorHum","4":"Battery","38":"OutTemp",
-              "39":"OutHum","54":"Baro","56":"AvgWind","57":"Gust","59":"Rain#59",
-              "60":"Rain#60","61":"RainRate","62":"UV","65":"FeelsLike","66":"HeatIdx",
-              "113":"Blob113","127":"RainTotal","131":"CurWind","134":"DirBlob",
-              "135":"Light","137":"Unk137"}
     while True:
         try:
-            data = device.receive()
-            if data and "dps" in data:
-                dps = data["dps"]
-                all_seen_keys.update(dps)
-                latest.update(dps)
-                latest["_ts"] = time.time()
-                if "134" in dps or "131" in dps:
-                    code = parse_dir(latest.get("134",""))
-                    # only push real directions into history, not CALM
-                    if code != "CALM":
-                        wind_history.append((time.time(), code, latest.get("131")))
-                live_log.append({"ts": time.time(), "dps": dps})
-                if len(live_log) > MAX_LOG:
-                    live_log.pop(0)
-                print(f"\n[{time.strftime('%H:%M:%S')}] {list(dps.keys())}")
-                for k, v in dps.items():
-                    label = LABELS.get(str(k), f"#{k}")
-                    if str(k) == "134":
-                        code = parse_dir(v)
-                        print(f"  {label:<12} {str(v)[:16]:<18} -> {code} ({DIR_FULL.get(code,code)})")
-                    else:
-                        print(f"  {label:<12} {v}")
+            device = tinytuya.OutletDevice(DEVICE_ID, IP, LOCAL_KEY)
+            device.set_version(3.4)
+            device.set_socketPersistent(True)
+
+            last_update = time.time()
+
+            while True:
+                data = device.receive()
+
+                if data and "dps" in data:
+                    dps = data["dps"]
+                    all_seen_keys.update(dps)
+                    latest.update(dps)
+                    latest["_ts"] = time.time()
+                    last_update = time.time()
+
+                    if "134" in dps or "131" in dps:
+                        code = parse_dir(latest.get("134", ""))
+                        if code != "CALM":
+                            wind_history.append((time.time(), code, latest.get("131")))
+
+                # Stall detection: no data for 5 min -> force reconnect
+                if time.time() - last_update > 300:
+                    raise Exception("No Tuya updates for 5 minutes -- reconnecting")
+
         except Exception as e:
-            print(f"Listener error: {e}")
-            time.sleep(2)
+            print(f"[Listener restart] {e}")
+            time.sleep(5)
 
 def heartbeat():
-    device = tinytuya.OutletDevice(DEVICE_ID, IP, LOCAL_KEY)
-    device.set_version(3.4)
+    """
+    Polls device status every 10s as a fallback / keepalive.
+    Outer loop ensures a dead socket never silently kills this thread.
+    """
     while True:
         try:
-            data = device.status()
-            if data and "dps" in data:
-                all_seen_keys.update(data["dps"])
-                latest.update(data["dps"])
-                latest["_ts"] = time.time()
+            device = tinytuya.OutletDevice(DEVICE_ID, IP, LOCAL_KEY)
+            device.set_version(3.4)
+            while True:
+                try:
+                    data = device.status()
+                    if data and "dps" in data:
+                        all_seen_keys.update(data["dps"])
+                        latest.update(data["dps"])
+                        latest["_ts"] = time.time()
+                except Exception as e:
+                    print(f"[Heartbeat] Poll error: {e}")
+                    break  # break inner loop; outer loop reinits device
+                time.sleep(10)
         except Exception as e:
-            print(f"Heartbeat error: {e}")
-        time.sleep(10)
+            print(f"[Heartbeat] Device init error: {e}")
+        time.sleep(5)  # brief pause before reconnect attempt
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, fmt, *args): pass
@@ -354,15 +353,17 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/":
             self.send_response(200)
-            self.send_header("Content-Type","text/html")
+            self.send_header("Content-Type", "text/html")
             self.end_headers()
-            with open("index.html","rb") as f: self.wfile.write(f.read())
+            with open("index.html", "rb") as f:
+                self.wfile.write(f.read())
         elif self.path == "/report":
             self.send_json(make_payload())
         elif self.path == "/data":
             d = dict(latest)
             d["_wind_analysis"] = analyse_wind()
-            d["_wind_history"]  = [{"ts":e[0],"dir":e[1],"speed":e[2]} for e in list(wind_history)]
+            d["_wind_history"]  = [{"ts": e[0], "dir": e[1], "speed": e[2]}
+                                    for e in list(wind_history)]
             self.send_json(d)
         elif self.path == "/log":
             self.send_json(live_log[-100:])
@@ -370,21 +371,35 @@ class Handler(BaseHTTPRequestHandler):
             snaps = sorted([x for x in os.listdir(SNAPSHOT_DIR)
                             if x.startswith("WX-REPORT-") and x.endswith(".json")], reverse=True)
             self.send_json({"count": len(snaps), "latest": snaps[:5]})
+        elif self.path == "/health":
+            ts  = latest.get("_ts", 0)
+            age = round(time.time() - ts, 1)
+            self.send_json({
+                "data_age_s":   age,
+                "stale":        age > 120,
+                "sample_count": len(wind_history),
+                "last_update":  datetime.utcfromtimestamp(ts).strftime("%Y-%m-%dT%H:%M:%SZ") if ts else None,
+            })
         else:
-            self.send_response(404); self.end_headers()
+            self.send_response(404)
+            self.end_headers()
 
     def do_POST(self):
         if self.path == "/snapshot/now":
             fname, payload = save_snapshot()
-            self.send_json({"ok": True, "file": fname, "payload": payload})
+            if fname:
+                self.send_json({"ok": True, "file": fname, "payload": payload})
+            else:
+                self.send_json({"ok": False, "reason": "data stale"}, status=503)
         else:
-            self.send_response(404); self.end_headers()
+            self.send_response(404)
+            self.end_headers()
 
     def do_OPTIONS(self):
         self.send_response(200)
-        self.send_header("Access-Control-Allow-Origin","*")
-        self.send_header("Access-Control-Allow-Methods","GET, POST, OPTIONS")
-        self.send_header("Access-Control-Allow-Headers","Content-Type")
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
 if __name__ == "__main__":
@@ -395,6 +410,7 @@ if __name__ == "__main__":
     print("=== Tuya WX ===  http://0.0.0.0:8090")
     print("  GET  /report       -> clean JSON for website/API")
     print("  GET  /data         -> full dashboard state")
+    print("  GET  /health       -> data age + stale flag")
     print("  POST /snapshot/now -> force save+push")
     print(f"  Snapshots at :27 and :57 UTC | elevation {STATION_ELEVATION_M}m (Mamer)")
     server.serve_forever()
