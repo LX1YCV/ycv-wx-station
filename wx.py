@@ -185,6 +185,8 @@ def make_payload():
         v = l.get(k); return round(v / 10, 1) if v is not None else None
     def r10(k):
         v = l.get(k); return round(v / 10, 1) if v is not None else None
+    def w10(k):
+        v = l.get(k); return round(v / 10, 1) if v is not None else None
 
     temp_c  = t10("38")
     p_abs   = l.get("54")
@@ -211,9 +213,9 @@ def make_payload():
             "direction_code":      dir_code,
             "direction_full":      dir_full,
             "current_direction":   cur_dir,
-            "current_speed_kmh":   l.get("131"),
-            "avg_speed_kmh":       wa["avg_speed_kmh"] if wa else l.get("56"),
-            "gust_kmh":            l.get("57"),
+            "current_speed_kmh":   int(w10("131")),
+            "avg_speed_kmh":       round(wa["avg_speed_kmh"] / 10, 1) if wa and wa["avg_speed_kmh"] is not None else w10("56"),
+            "gust_kmh":            int(w10("57")),
             "variable":            wa["variable"] if wa else False,
             "var_from":            wa["var_from"] if wa else None,
             "var_to":              wa["var_to"] if wa else None,
