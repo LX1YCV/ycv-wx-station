@@ -213,9 +213,9 @@ def make_payload():
             "direction_code":      dir_code,
             "direction_full":      dir_full,
             "current_direction":   cur_dir,
-            "current_speed_kmh":   int(w10("131")),
+            "current_speed_kmh":   int(round(w10("131"))),
             "avg_speed_kmh":       round(wa["avg_speed_kmh"] / 10, 1) if wa and wa["avg_speed_kmh"] is not None else w10("56"),
-            "gust_kmh":            int(w10("57")),
+            "gust_kmh":            int(round(w10("57"))),
             "variable":            wa["variable"] if wa else False,
             "var_from":            wa["var_from"] if wa else None,
             "var_to":              wa["var_to"] if wa else None,
@@ -236,7 +236,7 @@ def make_payload():
         },
         "battery_pct": l.get("4"),
         "visibility": {
-            "visibility_m":      get_visibility_cached(),
+            "visibility_m":      int(round(get_visibility_cached())),
             "visibility_source": "Open-Meteo API",
         },
     }
