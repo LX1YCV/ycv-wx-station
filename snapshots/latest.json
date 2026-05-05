@@ -1,14 +1,14 @@
 {
   "report_time": {
-    "iso": "2026-05-05T01:57:02Z",
-    "unix": 1777946222.34,
+    "iso": "2026-05-05T02:27:02Z",
+    "unix": 1777948022.35,
     "date_dmy": "05-05-2026",
-    "time_hm": "01:57",
-    "version": "YCV-WX-MAM-HOLZ-05-05-RI"
+    "time_hm": "02:27",
+    "version": "YCV-WX-MAM-HOLZ-05-05-SN"
   },
   "outdoor": {
     "temperature_c": 10.4,
-    "humidity_pct": 93,
+    "humidity_pct": 94,
     "feels_like_c": 10.7,
     "heat_index_c": 10.4
   },
@@ -39,7 +39,7 @@
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 740,
+    "visibility_m": 520,
     "visibility_source": "Open-Meteo API"
   }
 }
