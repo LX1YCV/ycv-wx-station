@@ -1,10 +1,10 @@
 {
   "report_time": {
-    "iso": "2026-05-08T02:57:04Z",
-    "unix": 1778209024.34,
+    "iso": "2026-05-08T03:27:04Z",
+    "unix": 1778210824.35,
     "date_dmy": "08-05-2026",
-    "time_hm": "02:57",
-    "version": "YCV-WX-MAM-HOLZ-08-05-LX"
+    "time_hm": "03:27",
+    "version": "YCV-WX-MAM-HOLZ-08-05-NC"
   },
   "outdoor": {
     "temperature_c": 8.6,
