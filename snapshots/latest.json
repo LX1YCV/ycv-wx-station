@@ -1,10 +1,10 @@
 {
   "report_time": {
-    "iso": "2026-05-10T21:57:17Z",
-    "unix": 1778450237.4,
+    "iso": "2026-05-10T22:27:17Z",
+    "unix": 1778452037.42,
     "date_dmy": "10-05-2026",
-    "time_hm": "21:57",
-    "version": "YCV-WX-MAM-HOLZ-10-05-LE"
+    "time_hm": "22:27",
+    "version": "YCV-WX-MAM-HOLZ-10-05-MK"
   },
   "outdoor": {
     "temperature_c": 11.9,
@@ -13,24 +13,24 @@
     "heat_index_c": 11.9
   },
   "wind": {
-    "direction_code": "E",
-    "direction_full": "East",
+    "direction_code": null,
+    "direction_full": null,
     "current_direction": "CALM",
     "current_speed_kmh": 0,
     "gust_kmh": 0,
-    "avg_speed_kmh": 0.3,
-    "max_speed_kmh": 3.2,
+    "avg_speed_kmh": 0.0,
+    "max_speed_kmh": 0.0,
     "variable": false,
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 71
+    "sample_count": 52
   },
   "rain": {
-    "event_mm": 0.2,
-    "daily_mm": 14.7,
+    "event_mm": 0.0,
+    "daily_mm": 0.0,
     "total_mm": 0.0,
-    "rate_mm_per_h": 0.6
+    "rate_mm_per_h": 0.0
   },
   "atmosphere": {
     "pressure_abs_hpa": 971,
@@ -40,7 +40,7 @@
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 3020,
+    "visibility_m": 3720,
     "visibility_source": "Open-Meteo API"
   }
 }
