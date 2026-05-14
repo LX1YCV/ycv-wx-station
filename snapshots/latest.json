@@ -1,46 +1,46 @@
 {
   "report_time": {
-    "iso": "2026-05-14T05:57:19Z",
-    "unix": 1778738239.65,
+    "iso": "2026-05-14T06:27:19Z",
+    "unix": 1778740039.67,
     "date_dmy": "14-05-2026",
-    "time_hm": "05:57",
-    "version": "YCV-WX-MAM-HOLZ-14-05-TY"
+    "time_hm": "06:27",
+    "version": "YCV-WX-MAM-HOLZ-14-05-VD"
   },
   "outdoor": {
-    "temperature_c": 5.0,
-    "humidity_pct": 89,
-    "feels_like_c": 3.0,
-    "heat_index_c": 5.0
+    "temperature_c": 5.5,
+    "humidity_pct": 90,
+    "feels_like_c": 4.8,
+    "heat_index_c": 5.5
   },
   "wind": {
-    "direction_code": "V E-WSW",
-    "direction_full": "VARIABLE East AND West South-West",
-    "current_direction": "SW",
-    "current_speed_kmh": 7,
-    "gust_kmh": 1,
-    "avg_speed_kmh": 1.0,
-    "max_speed_kmh": 6.6,
+    "direction_code": "V SE-WSW",
+    "direction_full": "VARIABLE South-East AND West South-West",
+    "current_direction": "CALM",
+    "current_speed_kmh": 0,
+    "gust_kmh": 0,
+    "avg_speed_kmh": 0.4,
+    "max_speed_kmh": 3.4,
     "variable": true,
-    "var_from": "E",
+    "var_from": "SE",
     "var_to": "WSW",
     "analysis_window_min": 30,
-    "sample_count": 73
+    "sample_count": 60
   },
   "rain": {
-    "event_mm": 1.0,
-    "daily_mm": 1.2,
-    "total_mm": 1.0,
+    "event_mm": 0.4,
+    "daily_mm": 1.4,
+    "total_mm": 0.2,
     "rate_mm_per_h": 0.0
   },
   "atmosphere": {
     "pressure_abs_hpa": 964,
     "pressure_qnh_hpa": 996.6,
-    "uv_index": 1,
-    "light_klux": 3.42
+    "uv_index": 2,
+    "light_klux": 9.31
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 44160,
+    "visibility_m": 39780,
     "visibility_source": "Open-Meteo API"
   }
 }
