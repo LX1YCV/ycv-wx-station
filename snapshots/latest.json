@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-05-16T14:27:01Z",
-    "unix": 1778941621.24,
+    "iso": "2026-05-16T14:57:01Z",
+    "unix": 1778943421.25,
     "date_dmy": "16-05-2026",
-    "time_hm": "14:27",
-    "version": "YCV-WX-MAM-HOLZ-16-05-YJ"
+    "time_hm": "14:57",
+    "version": "YCV-WX-MAM-HOLZ-16-05-ZO"
   },
   "outdoor": {
-    "temperature_c": 11.7,
-    "humidity_pct": 55,
-    "feels_like_c": 10.2,
-    "heat_index_c": 11.7
+    "temperature_c": 11.9,
+    "humidity_pct": 58,
+    "feels_like_c": 10.8,
+    "heat_index_c": 11.9
   },
   "wind": {
     "direction_code": "V ENE-W",
     "direction_full": "VARIABLE East North-East AND West",
-    "current_direction": "ESE",
-    "current_speed_kmh": 6,
-    "gust_kmh": 9,
-    "avg_speed_kmh": 2.9,
-    "max_speed_kmh": 10.4,
+    "current_direction": "SE",
+    "current_speed_kmh": 5,
+    "gust_kmh": 11,
+    "avg_speed_kmh": 3.4,
+    "max_speed_kmh": 10.2,
     "variable": true,
     "var_from": "ENE",
     "var_to": "W",
     "analysis_window_min": 30,
-    "sample_count": 87
+    "sample_count": 92
   },
   "rain": {
     "event_mm": 0.0,
@@ -34,13 +34,13 @@
   },
   "atmosphere": {
     "pressure_abs_hpa": 974,
-    "pressure_qnh_hpa": 1006.2,
-    "uv_index": 3,
-    "light_klux": 21.78
+    "pressure_qnh_hpa": 1006.1,
+    "uv_index": 4,
+    "light_klux": 30.89
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 21640,
+    "visibility_m": 25520,
     "visibility_source": "Open-Meteo API"
   }
 }
