@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-08-13T16:27:17Z",
-    "unix": 1786638437.95,
+    "iso": "2026-08-13T16:57:17Z",
+    "unix": 1786640237.96,
     "date_dmy": "13-08-2026",
-    "time_hm": "16:27",
-    "version": "YCV-WX-MAM-HOLZ-13-08-WX"
+    "time_hm": "16:57",
+    "version": "YCV-WX-MAM-HOLZ-13-08-YC"
   },
   "outdoor": {
-    "temperature_c": 37.0,
-    "humidity_pct": 16,
-    "feels_like_c": 38.8,
-    "heat_index_c": 34.8
+    "temperature_c": 35.0,
+    "humidity_pct": 17,
+    "feels_like_c": 36.2,
+    "heat_index_c": 32.8
   },
   "wind": {
-    "direction_code": "V N-ESE",
-    "direction_full": "VARIABLE North AND East South-East",
-    "current_direction": "CALM",
-    "current_speed_kmh": 0,
-    "gust_kmh": 2,
-    "avg_speed_kmh": 1.2,
-    "max_speed_kmh": 4.2,
+    "direction_code": "V N-E",
+    "direction_full": "VARIABLE North AND East",
+    "current_direction": "NNE",
+    "current_speed_kmh": 3,
+    "gust_kmh": 4,
+    "avg_speed_kmh": 1.1,
+    "max_speed_kmh": 4.0,
     "variable": true,
     "var_from": "N",
-    "var_to": "ESE",
+    "var_to": "E",
     "analysis_window_min": 30,
-    "sample_count": 76
+    "sample_count": 70
   },
   "rain": {
     "event_mm": 0.0,
@@ -34,9 +34,9 @@
   },
   "atmosphere": {
     "pressure_abs_hpa": 984,
-    "pressure_qnh_hpa": 1013.8,
-    "uv_index": 2,
-    "light_klux": 25.79
+    "pressure_qnh_hpa": 1014.0,
+    "uv_index": 0,
+    "light_klux": 6.72
   },
   "battery_pct": 100,
   "visibility": {
