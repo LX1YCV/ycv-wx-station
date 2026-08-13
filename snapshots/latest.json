@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-08-13T10:57:17Z",
-    "unix": 1786618637.83,
+    "iso": "2026-08-13T11:27:17Z",
+    "unix": 1786620437.84,
     "date_dmy": "13-08-2026",
-    "time_hm": "10:57",
-    "version": "YCV-WX-MAM-HOLZ-13-08-JV"
+    "time_hm": "11:27",
+    "version": "YCV-WX-MAM-HOLZ-13-08-LA"
   },
   "outdoor": {
-    "temperature_c": 33.8,
-    "humidity_pct": 21,
-    "feels_like_c": 35.0,
-    "heat_index_c": 31.8
+    "temperature_c": 33.9,
+    "humidity_pct": 22,
+    "feels_like_c": 35.8,
+    "heat_index_c": 32.1
   },
   "wind": {
-    "direction_code": "V S-E",
-    "direction_full": "VARIABLE South AND East",
-    "current_direction": "WNW",
-    "current_speed_kmh": 4,
-    "gust_kmh": 3,
-    "avg_speed_kmh": 1.3,
-    "max_speed_kmh": 5.2,
+    "direction_code": "V SSE-E",
+    "direction_full": "VARIABLE South South-East AND East",
+    "current_direction": "CALM",
+    "current_speed_kmh": 0,
+    "gust_kmh": 0,
+    "avg_speed_kmh": 2.3,
+    "max_speed_kmh": 7.6,
     "variable": true,
-    "var_from": "S",
+    "var_from": "SSE",
     "var_to": "E",
     "analysis_window_min": 30,
-    "sample_count": 75
+    "sample_count": 80
   },
   "rain": {
     "event_mm": 0.0,
@@ -35,12 +35,12 @@
   "atmosphere": {
     "pressure_abs_hpa": 986,
     "pressure_qnh_hpa": 1016.2,
-    "uv_index": 5,
-    "light_klux": 83.87
+    "uv_index": 3,
+    "light_klux": 85.51
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 49980,
+    "visibility_m": 50000,
     "visibility_source": "Open-Meteo API"
   }
 }
