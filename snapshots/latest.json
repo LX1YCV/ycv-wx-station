@@ -1,10 +1,10 @@
 {
   "report_time": {
-    "iso": "2026-08-23T02:27:02Z",
-    "unix": 1787452022.82,
+    "iso": "2026-08-23T02:57:02Z",
+    "unix": 1787453822.83,
     "date_dmy": "23-08-2026",
-    "time_hm": "02:27",
-    "version": "YCV-WX-MAM-HOLZ-23-08-OT"
+    "time_hm": "02:57",
+    "version": "YCV-WX-MAM-HOLZ-23-08-PY"
   },
   "outdoor": {
     "temperature_c": 9.5,
@@ -24,7 +24,7 @@
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 40
+    "sample_count": 50
   },
   "rain": {
     "event_mm": 0.0,
@@ -40,7 +40,7 @@
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 17280,
+    "visibility_m": 7900,
     "visibility_source": "Open-Meteo API"
   }
 }
