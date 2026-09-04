@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-09-04T20:57:14Z",
-    "unix": 1788555434.68,
+    "iso": "2026-09-04T21:27:14Z",
+    "unix": 1788557234.69,
     "date_dmy": "04-09-2026",
-    "time_hm": "20:57",
-    "version": "YCV-WX-MAM-HOLZ-04-09-NC"
+    "time_hm": "21:27",
+    "version": "YCV-WX-MAM-HOLZ-04-09-OH"
   },
   "outdoor": {
-    "temperature_c": 18.8,
+    "temperature_c": 18.7,
     "humidity_pct": 88,
-    "feels_like_c": 19.9,
-    "heat_index_c": 18.8
+    "feels_like_c": 19.7,
+    "heat_index_c": 18.7
   },
   "wind": {
     "direction_code": "N",
     "direction_full": "North",
-    "current_direction": "NNE",
-    "current_speed_kmh": 7,
-    "gust_kmh": 9,
-    "avg_speed_kmh": 1.6,
-    "max_speed_kmh": 10.4,
+    "current_direction": "WSW",
+    "current_speed_kmh": 8,
+    "gust_kmh": 2,
+    "avg_speed_kmh": 3.7,
+    "max_speed_kmh": 7.6,
     "variable": false,
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 79
+    "sample_count": 6
   },
   "rain": {
     "event_mm": 0.0,
@@ -40,7 +40,7 @@
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 50000,
+    "visibility_m": 39660,
     "visibility_source": "Open-Meteo API"
   }
 }
