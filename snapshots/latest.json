@@ -1,10 +1,10 @@
 {
   "report_time": {
-    "iso": "2026-09-28T01:27:07Z",
-    "unix": 1790558827.66,
+    "iso": "2026-09-28T01:57:07Z",
+    "unix": 1790560627.67,
     "date_dmy": "28-09-2026",
-    "time_hm": "01:27",
-    "version": "YCV-WX-MAM-HOLZ-28-09-KC"
+    "time_hm": "01:57",
+    "version": "YCV-WX-MAM-HOLZ-28-09-LQ"
   },
   "outdoor": {
     "temperature_c": 12.8,
@@ -24,7 +24,7 @@
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 67
+    "sample_count": 59
   },
   "rain": {
     "event_mm": 0.0,
