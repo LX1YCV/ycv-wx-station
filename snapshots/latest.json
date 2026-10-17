@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-10-17T09:27:10Z",
-    "unix": 1792229230.99,
+    "iso": "2026-10-17T09:57:10Z",
+    "unix": 1792231031.0,
     "date_dmy": "17-10-2026",
-    "time_hm": "09:27",
-    "version": "YCV-WX-MAM-HOLZ-17-10-YE"
+    "time_hm": "09:57",
+    "version": "YCV-WX-MAM-HOLZ-17-10-YF"
   },
   "outdoor": {
-    "temperature_c": 12.7,
+    "temperature_c": 12.2,
     "humidity_pct": 74,
-    "feels_like_c": 13.0,
-    "heat_index_c": 12.7
+    "feels_like_c": 12.2,
+    "heat_index_c": 12.2
   },
   "wind": {
-    "direction_code": "V NW-SE",
-    "direction_full": "VARIABLE North-West AND South-East",
-    "current_direction": "CALM",
-    "current_speed_kmh": 0,
-    "gust_kmh": 3,
-    "avg_speed_kmh": 4.1,
-    "max_speed_kmh": 10.0,
+    "direction_code": "V NW-S",
+    "direction_full": "VARIABLE North-West AND South",
+    "current_direction": "NNE",
+    "current_speed_kmh": 1,
+    "gust_kmh": 5,
+    "avg_speed_kmh": 4.5,
+    "max_speed_kmh": 10.6,
     "variable": true,
     "var_from": "NW",
-    "var_to": "SE",
+    "var_to": "S",
     "analysis_window_min": 30,
-    "sample_count": 105
+    "sample_count": 91
   },
   "rain": {
     "event_mm": 0.0,
@@ -34,9 +34,9 @@
   },
   "atmosphere": {
     "pressure_abs_hpa": 988,
-    "pressure_qnh_hpa": 1020.5,
-    "uv_index": 2,
-    "light_klux": 18.42
+    "pressure_qnh_hpa": 1020.6,
+    "uv_index": 1,
+    "light_klux": 13.54
   },
   "battery_pct": 100,
   "visibility": {
