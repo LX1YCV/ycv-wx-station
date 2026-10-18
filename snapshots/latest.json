@@ -1,15 +1,15 @@
 {
   "report_time": {
-    "iso": "2026-10-18T10:57:11Z",
-    "unix": 1792321031.53,
+    "iso": "2026-10-18T11:27:11Z",
+    "unix": 1792322831.54,
     "date_dmy": "18-10-2026",
-    "time_hm": "10:57",
-    "version": "YCV-WX-MAM-HOLZ-18-10-AD"
+    "time_hm": "11:27",
+    "version": "YCV-WX-MAM-HOLZ-18-10-AE"
   },
   "outdoor": {
     "temperature_c": 9.3,
     "humidity_pct": 79,
-    "feels_like_c": 8.9,
+    "feels_like_c": 9.0,
     "heat_index_c": 9.3
   },
   "wind": {
@@ -18,13 +18,13 @@
     "current_direction": "CALM",
     "current_speed_kmh": 0,
     "gust_kmh": 0,
-    "avg_speed_kmh": 1.5,
-    "max_speed_kmh": 6.2,
+    "avg_speed_kmh": 0.0,
+    "max_speed_kmh": 0.0,
     "variable": false,
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 72
+    "sample_count": 8
   },
   "rain": {
     "event_mm": 0.0,
@@ -36,7 +36,7 @@
     "pressure_abs_hpa": 987,
     "pressure_qnh_hpa": 1019.9,
     "uv_index": 1,
-    "light_klux": 8.48
+    "light_klux": 7.69
   },
   "battery_pct": 100,
   "visibility": {
