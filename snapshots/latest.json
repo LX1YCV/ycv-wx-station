@@ -1,10 +1,10 @@
 {
   "report_time": {
-    "iso": "2026-10-30T00:27:13Z",
-    "unix": 1793320033.92,
+    "iso": "2026-10-30T00:57:13Z",
+    "unix": 1793321833.93,
     "date_dmy": "30-10-2026",
-    "time_hm": "00:27",
-    "version": "YCV-WX-MAM-HOLZ-30-10-AQ"
+    "time_hm": "00:57",
+    "version": "YCV-WX-MAM-HOLZ-30-10-BU"
   },
   "outdoor": {
     "temperature_c": 4.3,
@@ -40,7 +40,7 @@
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 4560,
+    "visibility_m": 5040,
     "visibility_source": "Open-Meteo API"
   }
 }
