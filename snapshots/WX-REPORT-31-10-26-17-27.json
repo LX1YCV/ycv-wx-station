@@ -1,0 +1,46 @@
+{
+  "report_time": {
+    "iso": "2026-10-31T17:27:14Z",
+    "unix": 1793467634.71,
+    "date_dmy": "31-10-2026",
+    "time_hm": "17:27",
+    "version": "YCV-WX-MAM-HOLZ-31-10-UE"
+  },
+  "outdoor": {
+    "temperature_c": 7.7,
+    "humidity_pct": 81,
+    "feels_like_c": 6.6,
+    "heat_index_c": 7.7
+  },
+  "wind": {
+    "direction_code": "NNE",
+    "direction_full": "North North-East",
+    "current_direction": "NNE",
+    "current_speed_kmh": 3,
+    "gust_kmh": 3,
+    "avg_speed_kmh": 3.9,
+    "max_speed_kmh": 5.0,
+    "variable": false,
+    "var_from": null,
+    "var_to": null,
+    "analysis_window_min": 30,
+    "sample_count": 9
+  },
+  "rain": {
+    "event_mm": 0.0,
+    "daily_mm": 0.0,
+    "total_mm": 0.0,
+    "rate_mm_per_h": 0.0
+  },
+  "atmosphere": {
+    "pressure_abs_hpa": 993,
+    "pressure_qnh_hpa": 1026.3,
+    "uv_index": 0,
+    "light_klux": 0.01
+  },
+  "battery_pct": 100,
+  "visibility": {
+    "visibility_m": 11940,
+    "visibility_source": "Open-Meteo API"
+  }
+}
