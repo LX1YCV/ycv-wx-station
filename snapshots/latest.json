@@ -1,14 +1,14 @@
 {
   "report_time": {
-    "iso": "2026-11-02T10:27:15Z",
-    "unix": 1793615235.51,
+    "iso": "2026-11-02T10:57:15Z",
+    "unix": 1793617035.52,
     "date_dmy": "02-11-2026",
-    "time_hm": "10:27",
-    "version": "YCV-WX-MAM-HOLZ-02-11-NS"
+    "time_hm": "10:57",
+    "version": "YCV-WX-MAM-HOLZ-02-11-OW"
   },
   "outdoor": {
     "temperature_c": 6.6,
-    "humidity_pct": 85,
+    "humidity_pct": 86,
     "feels_like_c": 6.0,
     "heat_index_c": 6.6
   },
@@ -18,13 +18,13 @@
     "current_direction": "CALM",
     "current_speed_kmh": 0,
     "gust_kmh": 0,
-    "avg_speed_kmh": 0.8,
-    "max_speed_kmh": 4.2,
+    "avg_speed_kmh": 0.7,
+    "max_speed_kmh": 3.2,
     "variable": false,
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 77
+    "sample_count": 64
   },
   "rain": {
     "event_mm": 0.0,
@@ -36,11 +36,11 @@
     "pressure_abs_hpa": 993,
     "pressure_qnh_hpa": 1026.4,
     "uv_index": 0,
-    "light_klux": 7.1
+    "light_klux": 7.36
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 11020,
+    "visibility_m": 13160,
     "visibility_source": "Open-Meteo API"
   }
 }
