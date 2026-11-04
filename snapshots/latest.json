@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-11-04T13:27:16Z",
-    "unix": 1793798836.51,
+    "iso": "2026-11-04T13:57:16Z",
+    "unix": 1793800636.52,
     "date_dmy": "04-11-2026",
-    "time_hm": "13:27",
-    "version": "YCV-WX-MAM-HOLZ-04-11-GE"
+    "time_hm": "13:57",
+    "version": "YCV-WX-MAM-HOLZ-04-11-HJ"
   },
   "outdoor": {
-    "temperature_c": 6.9,
-    "humidity_pct": 70,
-    "feels_like_c": 6.0,
-    "heat_index_c": 6.9
+    "temperature_c": 7.0,
+    "humidity_pct": 69,
+    "feels_like_c": 6.1,
+    "heat_index_c": 7.0
   },
   "wind": {
-    "direction_code": "NNE",
-    "direction_full": "North North-East",
+    "direction_code": "V WSW-ENE",
+    "direction_full": "VARIABLE West South-West AND East North-East",
     "current_direction": "CALM",
     "current_speed_kmh": 0,
-    "gust_kmh": 0,
-    "avg_speed_kmh": 2.4,
-    "max_speed_kmh": 7.6,
-    "variable": false,
-    "var_from": null,
-    "var_to": null,
+    "gust_kmh": 1,
+    "avg_speed_kmh": 1.6,
+    "max_speed_kmh": 10.6,
+    "variable": true,
+    "var_from": "WSW",
+    "var_to": "ENE",
     "analysis_window_min": 30,
-    "sample_count": 95
+    "sample_count": 83
   },
   "rain": {
     "event_mm": 0.0,
@@ -36,11 +36,11 @@
     "pressure_abs_hpa": 988,
     "pressure_qnh_hpa": 1021.2,
     "uv_index": 0,
-    "light_klux": 4.22
+    "light_klux": 3.93
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 26040,
+    "visibility_m": 27420,
     "visibility_source": "Open-Meteo API"
   }
 }
