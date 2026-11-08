@@ -1,16 +1,16 @@
 {
   "report_time": {
-    "iso": "2026-11-08T04:57:18Z",
-    "unix": 1794113838.3,
+    "iso": "2026-11-08T05:27:18Z",
+    "unix": 1794115638.31,
     "date_dmy": "08-11-2026",
-    "time_hm": "04:57",
-    "version": "YCV-WX-MAM-HOLZ-08-11-GK"
+    "time_hm": "05:27",
+    "version": "YCV-WX-MAM-HOLZ-08-11-HP"
   },
   "outdoor": {
-    "temperature_c": 5.2,
+    "temperature_c": 5.3,
     "humidity_pct": 98,
-    "feels_like_c": 4.5,
-    "heat_index_c": 5.2
+    "feels_like_c": 4.7,
+    "heat_index_c": 5.3
   },
   "wind": {
     "direction_code": null,
@@ -24,7 +24,7 @@
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 37
+    "sample_count": 44
   },
   "rain": {
     "event_mm": 0.0,
@@ -40,7 +40,7 @@
   },
   "battery_pct": 100,
   "visibility": {
-    "visibility_m": 500,
+    "visibility_m": 440,
     "visibility_source": "Open-Meteo API"
   }
 }
