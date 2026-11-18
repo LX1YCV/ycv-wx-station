@@ -1,30 +1,30 @@
 {
   "report_time": {
-    "iso": "2026-11-18T22:57:03Z",
-    "unix": 1795042623.18,
+    "iso": "2026-11-18T23:27:03Z",
+    "unix": 1795044423.19,
     "date_dmy": "18-11-2026",
-    "time_hm": "22:57",
-    "version": "YCV-WX-MAM-HOLZ-18-11-WY"
+    "time_hm": "23:27",
+    "version": "YCV-WX-MAM-HOLZ-18-11-YD"
   },
   "outdoor": {
     "temperature_c": 9.1,
     "humidity_pct": 92,
-    "feels_like_c": 9.1,
+    "feels_like_c": 8.2,
     "heat_index_c": 9.1
   },
   "wind": {
-    "direction_code": "V W-SSE",
-    "direction_full": "VARIABLE West AND South South-East",
-    "current_direction": "CALM",
-    "current_speed_kmh": 0,
-    "gust_kmh": 3,
-    "avg_speed_kmh": 3.1,
-    "max_speed_kmh": 8.8,
+    "direction_code": "V WNW-SE",
+    "direction_full": "VARIABLE West North-West AND South-East",
+    "current_direction": "N",
+    "current_speed_kmh": 5,
+    "gust_kmh": 12,
+    "avg_speed_kmh": 3.3,
+    "max_speed_kmh": 10.0,
     "variable": true,
-    "var_from": "W",
-    "var_to": "SSE",
+    "var_from": "WNW",
+    "var_to": "SE",
     "analysis_window_min": 30,
-    "sample_count": 104
+    "sample_count": 79
   },
   "rain": {
     "event_mm": 0.0,
