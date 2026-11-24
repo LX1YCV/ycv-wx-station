@@ -1,16 +1,16 @@
 {
   "report_time": {
-    "iso": "2026-11-24T04:57:05Z",
-    "unix": 1795496225.6,
+    "iso": "2026-11-24T05:27:05Z",
+    "unix": 1795498025.61,
     "date_dmy": "24-11-2026",
-    "time_hm": "04:57",
-    "version": "YCV-WX-MAM-HOLZ-24-11-RD"
+    "time_hm": "05:27",
+    "version": "YCV-WX-MAM-HOLZ-24-11-SI"
   },
   "outdoor": {
-    "temperature_c": -7.8,
-    "humidity_pct": 95,
-    "feels_like_c": -10.5,
-    "heat_index_c": -7.8
+    "temperature_c": -7.7,
+    "humidity_pct": 94,
+    "feels_like_c": -10.3,
+    "heat_index_c": -7.7
   },
   "wind": {
     "direction_code": null,
@@ -24,7 +24,7 @@
     "var_from": null,
     "var_to": null,
     "analysis_window_min": 30,
-    "sample_count": 16
+    "sample_count": 56
   },
   "rain": {
     "event_mm": 0.0,
